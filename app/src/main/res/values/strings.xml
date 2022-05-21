@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CardApplication</string>
+    <string name="login">Увійти</string>
+    <string name="email">Електронна пошта</string>
+    <string name="password">Пароль</string>
+    <string name="Loging">Вхід</string>
+    <string name="NoAccountRegisterByEmail">Немає акаунту? Зареєструйтесь через електронну пошту!</string>
+    <string name="registration">Реєстрація</string>
+    <string name="register">Зареєструватися</string>
+    <string name="confirmPassword">Підтвердження пароля</string>
+    <string name="HaveAccountAlreadyLogin">Уже є акаунт? Увійдіть!</string>
+</resources>
