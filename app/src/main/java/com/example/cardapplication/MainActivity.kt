@@ -1,15 +1,17 @@
 package com.example.cardapplication
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.View
-import android.widget.TextView
-import com.example.authentication.usecase.LogInByEmail
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.navigation.fragment.NavHostFragment
+import com.example.cardapplication.authentication.usecase.LogInByEmail
+import com.example.cardapplication.ui.fragments.LoginFragment
+import com.example.cardapplication.ui.fragments.RegistrationFragment
+import com.example.cardapplication.ui.fragments.StoreFragment
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var auth: FirebaseAuth
@@ -17,6 +19,42 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        navController.navigate(R.id.action_loginFragment_to_storeFragment)
+        //navController.navigate(R.id.action_loginFragment_to_registrationFragment)
+
+
+
+
+
+//        val storeFragment = StoreFragment()
+//        val fragmentTransaction = supportFragmentManager.beginTransaction()
+//        fragmentTransaction.replace(R.id.nav_host_fragment, storeFragment)
+//        fragmentTransaction.commit()
+
+        //TODO
+//        Firebase.auth.signOut()
+//
+//        if (LogInByEmail.checkCurrentUserAuthentication()) {
+//            Toast.makeText(this, "Увійшли!", Toast.LENGTH_LONG).show()
+//        }
+//        else
+//            Toast.makeText(this, "НЕ УВІЙШЛИ! ПОМИЛКА!!", Toast.LENGTH_LONG).show()
+
+        //RegisterUserByEmail.registerNewUser (User(email = "ruslan.bratus2@aiesec.net", password = "ruslan"))
+
+
+        //navController.navigate(R.id.action_loginFragment_to_registrationFragment)
+        //navController.navigate(R.id.action_loginFragment_to_registrationFragment)
+        //findNavController(R.id.action_loginFragment_to_registrationFragment)
+
+
+
+        //navController.navigate(R.id.action_registrationFragment_to_loginFragment)
 
         //private val auth: FirebaseAuth = Firebase.auth
 
@@ -32,54 +70,41 @@ class MainActivity : AppCompatActivity() {
 //                Log.d("problems", "Fail!")
 //                setContentView(R.layout.login)
 //            }
-
-
-
         //CHANGE LATER! if true == Shop Store. else - login
-        if (LogInByEmail.checkCurrentUserAuthentication())
-            setContentView(R.layout.registration)
-            //put here setContentView(R.layout.SHOP STORE LAYOUT NAME )
-        else
-            setContentView(R.layout.login)
 
 
-        Log.d("problems", "28 line")
-
-        val changeRegistrateColor = SpannableString(resources.getString(R.string.NoAccountRegisterByEmail))
-        changeRegistrateColor.setSpan(
-            ForegroundColorSpan(Color.parseColor("#408AD2")),
-            15,
-            29,
-            Spanned.SPAN_EXCLUSIVE_INCLUSIVE
-        ) // устанавливаем цвет слову Hello
-        val registerTextView = findViewById<View>(R.id.HaventAccountRegisterClickable) as TextView
-        registerTextView.text = changeRegistrateColor
-        //LOGIN VIEW
-
-        registerTextView.setOnClickListener {
-            setContentView(R.layout.registration)
-            val changeLoginColor = SpannableString(resources.getString(R.string.HaveAccountAlreadyLogin))
-            changeLoginColor.setSpan(
-                ForegroundColorSpan(Color.parseColor("#408AD2")),
-                15,
-                23,
-                Spanned.SPAN_EXCLUSIVE_INCLUSIVE
-            ) // устанавливаем цвет слову Hello
-            val loginTextView = findViewById<View>(R.id.HaveAccount) as TextView
-            registerTextView.text = changeLoginColor
-
-            loginTextView.setOnClickListener {
-                setContentView(R.layout.login)
-            }
-        }
-
-
-        //LOGIN VIEW
-
-
-
+       //TODO
+//        if (LogInByEmail.checkCurrentUserAuthentication())
+//            setRegistrationLayout()
+//            //put here setContentView(R.layout.SHOP STORE LAYOUT NAME )
+//        else
+//            setLoginLayout()
 
 
 
     }
+
+
+
+    fun setLoginLayout() {
+        //setContentView(R.layout.login)
+        val loginFragment = LoginFragment()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_host_fragment, loginFragment)
+        fragmentTransaction.commit()
+
+
+
+    }
+
+    fun setRegistrationLayout() {
+        val registrationFragment = RegistrationFragment()
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.nav_host_fragment, registrationFragment)
+        fragmentTransaction.commit()
+        }
+
+
+
+
 }

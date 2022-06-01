@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/login"
@@ -12,13 +18,13 @@
             android:fontFamily="sans-serif-black"
             android:paddingTop="70sp"
             android:paddingBottom="0sp"
-            android:text="@string/registration"
+            android:text="@string/Loging"
             android:textAlignment="center"
             android:textColor="#040404"
             android:textSize="28sp" />
 
         <EditText
-            android:id="@+id/editTextTextEmailAddress2"
+            android:id="@+id/loginEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40sp"
@@ -32,7 +38,7 @@
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/editTextTextPassword2"
+            android:id="@+id/loginPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40sp"
@@ -45,23 +51,9 @@
             android:padding="15sp"
             android:textColor="@color/black" />
 
-        <EditText
-            android:id="@+id/confirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="40sp"
-            android:layout_marginTop="30sp"
-            android:layout_marginRight="40sp"
-            android:background="@drawable/fields"
-            android:ems="10"
-            android:hint="@string/confirmPassword"
-            android:inputType="textPassword"
-            android:padding="15sp"
-            android:textColor="@color/black" />
-
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="40sp"
@@ -71,22 +63,24 @@
             android:fontFamily="sans-serif-medium"
             android:hint="@string/password"
             android:padding="15sp"
-            android:text="@string/register"
+            android:text="@string/login"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/HaveAccount"
+            android:id="@+id/HaventAccountRegisterClickable"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:clickable="true"
             android:paddingTop="25sp"
             android:paddingBottom="40sp"
-            android:text="@string/HaveAccountAlreadyLogin"
+            android:text="@string/NoAccountRegisterByEmail"
             android:textAlignment="center"
             android:textColor="#040404"
             android:textSize="16sp"
             android:focusable="true" />
 
-</LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
