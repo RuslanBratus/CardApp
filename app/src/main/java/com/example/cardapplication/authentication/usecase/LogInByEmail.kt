@@ -1,15 +1,16 @@
 package com.example.cardapplication.authentication.usecase
 
+import android.content.Intent
 import android.util.Log
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.core.content.ContextCompat.startActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.cardapplication.R
 import com.example.cardapplication.authentication.usecase.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class LogInByEmail {
 
@@ -32,11 +33,11 @@ class LogInByEmail {
         }
 
 
-        fun logIn(user : User) {
+        fun logIn(currentFragment: Fragment, user : User) {
             if (checkCurrentUserAuthentication()) {
-                //Уже увійшли
+                setMainFragment(currentFragment)
             }
-
+            auth = Firebase.auth
             auth.signInWithEmailAndPassword(user.email, user.password)
 
                 .addOnCompleteListener { task ->
@@ -44,6 +45,7 @@ class LogInByEmail {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("logIn", "signInWithEmail:success")
                         val currentUser = auth.currentUser
+                        setMainFragment(currentFragment = currentFragment)
                         //findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
                         //updateUI(currentUser)
                     } else {
@@ -54,6 +56,13 @@ class LogInByEmail {
                         //updateUI(null)
                     }
                 }
+        }
+
+        private fun setMainFragment(currentFragment: Fragment) {
+
+            findNavController(fragment = currentFragment).navigate(R.id.mainFragment)
+            //findNavController(fragment = currentFragment).
+
         }
 
 

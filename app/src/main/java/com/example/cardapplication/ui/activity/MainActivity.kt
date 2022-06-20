@@ -1,17 +1,11 @@
-package com.example.cardapplication
+package com.example.cardapplication.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.NavHostFragment
-import com.example.cardapplication.authentication.usecase.LogInByEmail
+import com.example.cardapplication.R
 import com.example.cardapplication.ui.fragments.LoginFragment
 import com.example.cardapplication.ui.fragments.RegistrationFragment
-import com.example.cardapplication.ui.fragments.StoreFragment
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity() {
     //private lateinit var auth: FirebaseAuth
@@ -24,7 +18,23 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-        navController.navigate(R.id.action_loginFragment_to_storeFragment)
+
+        //TODO DELETE THIS
+        //ProfileManagement.logOut()
+
+
+
+
+
+        //val tmp = Product(Category.CLOTHES,Date(51),"str","asd",15.0,"asd")
+
+        //navController.navigate(R.id.action_loginFragment_to_storeFragment)
+
+
+//        navController.navigate(R.id.action_loginFragment_to_mainFragment)
+//        navController.navigate(R.id.action_mainFragment_to_cardsFragment)
+//        navController.navigate(R.id.action_cardsFragment_to_newCardAddingFragment)
+
         //navController.navigate(R.id.action_loginFragment_to_registrationFragment)
 
 

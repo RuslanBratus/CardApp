@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.NewCardAddingFragment">
+
+    <TextView
+        android:id="@+id/topPanel"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/myBlue"
+        android:text="@string/add_new_card"
+        android:textStyle="bold"
+        android:textSize="24sp"
+        android:textColor="#040404"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <mostafa.ma.saleh.gmail.com.editcredit.EditCredit
+        android:id="@+id/cardNumber"
+        android:layout_width="0dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/edit_text"
+        android:hint="@string/bank_card_number"
+        android:paddingStart="15dp"
+        android:textSize="16sp"
+        app:drawableGravity="end"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topPanel"
+        app:layout_constraintWidth_percent="0.8"
+        app:separator="spaces"
+        tools:ignore="RtlSymmetry" />
+
+    <TextView
+        android:id="@+id/addButton"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/button"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-medium"
+        android:hint="@string/add_a_card"
+        android:padding="15sp"
+        android:paddingStart="15dp"
+        android:text="@string/add_a_card"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintEnd_toEndOf="@+id/cardNumber"
+        app:layout_constraintStart_toStartOf="@+id/cardNumber"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumber"
+        app:layout_constraintWidth_percent="0.9"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/MM_YY"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints="creditCardExpirationDay"
+        android:background="@drawable/edit_text"
+        android:gravity="start|center"
+        android:hint="@string/mm_yy"
+        android:includeFontPadding="true"
+        android:inputType="number"
+        android:maxLength="5"
+        android:paddingStart="15dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumber"
+        app:layout_constraintWidth_percent="0.35"
+        tools:ignore="RtlSymmetry" />
+
+    <EditText
+        android:id="@+id/CVV"
+        android:layout_width="0dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:autofillHints="creditCardExpirationDay"
+        android:background="@drawable/edit_text"
+        android:gravity="start|center"
+        android:hint="@string/cvv"
+        android:includeFontPadding="true"
+        android:inputType="number"
+        android:maxLength="3"
+        android:paddingStart="15dp"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/MM_YY"
+        app:layout_constraintTop_toBottomOf="@+id/cardNumber"
+        app:layout_constraintWidth_percent="0.35" />
+
+    <ImageView
+        android:id="@+id/arrowBack"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/arrow_left"
+        app:layout_constraintStart_toStartOf="@+id/topPanel"
+        app:layout_constraintTop_toTopOf="@+id/topPanel" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

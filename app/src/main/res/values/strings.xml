@@ -20,4 +20,18 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="personal_account">Особистий кабінет</string>
+    <string name="products">Товари</string>
+    <string name="card">card</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="my_cards">Мої Карти</string>
+    <string name="add_a_card">Добавити</string>
+    <string name="fill_the_card_number">Введіть ваш номер банківської картки</string>
+    <string name="bank_card_number">Номер банківської карти</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="add_new_card">Додатки нову картку</string>
+    <string name="UAH">Грн. </string>
+    <string name="product_cost">Hello, %1$s! You have %2$d new messages.</string>
+
 </resources>

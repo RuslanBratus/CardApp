@@ -14,6 +14,8 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cardapplication.R
+import com.example.cardapplication.authentication.usecase.RegisterUserByEmail
+import com.example.cardapplication.authentication.usecase.models.User
 import com.example.cardapplication.databinding.FragmentRegistrationBinding
 import java.util.regex.Pattern
 
@@ -62,7 +64,7 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
             if (validateEmailAddress(email = email) && validatePassword(password = password, confirmPassword = confirmPassword))
                 Toast.makeText(context, "Все ок, реєструємо", Toast.LENGTH_SHORT).show()
-                //RegisterUserByEmail.registerNewUser (User(email = email, password = password))
+                RegisterUserByEmail.registerNewUser (User(email = email, password = password))
         }
 
 

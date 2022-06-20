@@ -14,8 +14,8 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_storeFragment"
-            app:destination="@id/storeFragment" />
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -27,8 +27,41 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/storeFragment"
-        android:name="com.example.cardapplication.ui.fragments.StoreFragment"
-        android:label="fragment_store"
-        tools:layout="@layout/fragment_store" />
+        android:id="@+id/mainFragment"
+        android:name="com.example.cardapplication.ui.fragments.main.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_personalAccountFragment"
+            app:destination="@id/personalAccountFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_cardsFragment"
+            app:destination="@id/cardsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_productBuyingFragment"
+            app:destination="@id/productBuyingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personalAccountFragment"
+        android:name="com.example.cardapplication.ui.fragments.PersonalAccountFragment"
+        android:label="fragment_personal_account"
+        tools:layout="@layout/fragment_personal_account" />
+    <fragment
+        android:id="@+id/cardsFragment"
+        android:name="com.example.cardapplication.ui.fragments.CardsFragment"
+        android:label="CardsFragment" >
+        <action
+            android:id="@+id/action_cardsFragment_to_newCardAddingFragment"
+            app:destination="@id/newCardAddingFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/newCardAddingFragment2"
+        android:name="com.example.cardapplication.ui.fragments.NewCardAddingFragment"
+        android:label="fragment_new_card_adding"
+        tools:layout="@layout/fragment_new_card_adding" />
+    <fragment
+        android:id="@+id/productBuyingFragment"
+        android:name="com.example.cardapplication.ui.fragments.ProductBuyingFragment"
+        android:label="fragment_product_buying"
+        tools:layout="@layout/fragment_product_buying" />
 </navigation>

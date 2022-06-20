@@ -42,9 +42,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        //ProfileManagement.logOut()
+
+        if (LogInByEmail.checkCurrentUserAuthentication())
+            setMainFragment()
+
         binding = FragmentLoginBinding.bind(view)
 
+
+
         Log.d("Navigation", "Opening Login Layout")
+
+
+
 
         val changeRegistrantsColor = SpannableString(resources.getString(R.string.NoAccountRegisterByEmail))
         changeRegistrantsColor.setSpan(
@@ -61,12 +72,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.loginButton.setOnClickListener {
             val email : String = binding.loginEmailAddress.text.toString()
             val password : String = binding.loginPassword.text.toString()
-            if (email == "ruslan.bratus2@aiesec.net" && password == "ruslan") {
+            if (email == "1" && password == "1") {
+                //@TODO DELETE THIS
                 Toast.makeText(context, "Loggined", Toast.LENGTH_LONG).show()
-                LogInByEmail.logIn(User(email = email, password = password))
+                LogInByEmail.logIn(this, User(email = email, password = password))
+
             }
             if (validateEmail(email) && validatePassword(password))
-                LogInByEmail.logIn(User(email = email, password = password))
+                LogInByEmail.logIn(this, User(email = email, password = password))
         }
 
 
@@ -86,10 +99,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun setRegistrationLayout() {
-//        val navHostFragment =
-//            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
         findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+    }
+
+    private fun setMainFragment() {
+        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
     private fun validateEmail(email : String) : Boolean {
