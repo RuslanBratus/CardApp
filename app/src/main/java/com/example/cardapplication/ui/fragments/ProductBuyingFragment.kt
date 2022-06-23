@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.example.cardapplication.R
+import com.example.cardapplication.data.firebase.StoreManager
 import com.example.cardapplication.databinding.FragmentProductBuyingBinding
 
 class ProductBuyingFragment : Fragment() {
@@ -16,8 +17,8 @@ class ProductBuyingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentProductBuyingBinding.bind(view)
-        Log.i("test", "bundle 19 line before = ${requireArguments().getString("productId")}")
         binding.test.text = requireArguments().getString("productId")
+        StoreManager.getProductById(requireArguments().getString("productId")!!)
 
     }
 

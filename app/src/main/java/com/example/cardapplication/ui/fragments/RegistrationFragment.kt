@@ -2,8 +2,10 @@ package com.example.cardapplication.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.util.Patterns
@@ -14,6 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cardapplication.R
+import com.example.cardapplication.authentication.usecase.LogInByEmail
 import com.example.cardapplication.authentication.usecase.RegisterUserByEmail
 import com.example.cardapplication.authentication.usecase.models.User
 import com.example.cardapplication.databinding.FragmentRegistrationBinding
@@ -54,17 +57,19 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
         binding.HaveAccount.setOnClickListener { setLoginLayout() }
 
+
+        binding.registrationEmailAddress.addTextChangedListener(MyTextWatcher(binding.registrationEmailAddress))
+        binding.registrationPassword.addTextChangedListener(MyTextWatcher(binding.registrationPassword))
+        binding.registrationConfirmPassword.addTextChangedListener(MyTextWatcher(binding.registrationConfirmPassword))
+
         binding.RegistrationButton.setOnClickListener {
 
             val email : String = binding.registrationEmailAddress.text.toString()
-            //Toast.makeText(context, "Емайл = , $email", Toast.LENGTH_SHORT).show()
             val password : String = binding.registrationPassword.text.toString()
-            val confirmPassword : String = binding.registrationConfirmPassword.text.toString()
 
-
-            if (validateEmailAddress(email = email) && validatePassword(password = password, confirmPassword = confirmPassword))
+            if (validateEmailAddress() && validatePassword() && confirmPassword())
                 Toast.makeText(context, "Все ок, реєструємо", Toast.LENGTH_SHORT).show()
-                RegisterUserByEmail.registerNewUser (User(email = email, password = password))
+                RegisterUserByEmail.registerNewUser (this, User(email = email, password = password))
         }
 
 
@@ -89,26 +94,53 @@ class RegistrationFragment : Fragment(R.layout.fragment_registration) {
 
 
 
-    private fun validateEmailAddress(email : String) : Boolean {
-        return if (email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            //Toast.makeText(context, "Найс емайл, $email", Toast.LENGTH_SHORT).show()
+    private fun validateEmailAddress(email : String = binding.registrationEmailAddress.text.toString()) : Boolean {
+        return if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.registrationEmailLayout.error = getString(R.string.error_email)
             true
         } else {
-            Toast.makeText(context, "Невірна електронна адреса.", Toast.LENGTH_SHORT).show()
+            binding.registrationEmailLayout.isErrorEnabled = false
             false
         }
     }
 
-    private fun validatePassword(password : String, confirmPassword : String) : Boolean {
-        if (password != confirmPassword) {
-            Toast.makeText(context, "Паролі не збігаються.", Toast.LENGTH_SHORT).show()
+    private fun validatePassword(password : String = binding.registrationPassword.text.toString()) : Boolean {
+        if (password.isEmpty() || !PASSWORD_PATTERN.matcher(password).matches()) {
+            binding.registrationPasswordLayout.error = getString(R.string.error_registration_password)
             return false
         }
-        if (password.isNotEmpty() && !PASSWORD_PATTERN.matcher(password).matches()) {
-            Toast.makeText(context, "Невірний формат паролю.\nПароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.", Toast.LENGTH_SHORT).show()
-            return false
+        else {
+            binding.registrationPasswordLayout.isErrorEnabled = false
         }
         return true
+    }
+
+    private fun confirmPassword(password : String = binding.registrationPassword.text.toString(), confirmPassword : String = binding.registrationConfirmPassword.text.toString()) : Boolean {
+        if (password != confirmPassword) {
+            binding.registrationConfirmPasswordLayout.error = getString(R.string.error_confirm_passwords)
+            return false
+        }
+        else {
+            binding.registrationConfirmPasswordLayout.isErrorEnabled = false
+        }
+        return true
+    }
+
+    private inner class MyTextWatcher(private val view: View) : TextWatcher {
+
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun afterTextChanged(editable: Editable) {
+            when (view.id) {
+                R.id.registrationEmailAddress -> validateEmailAddress()
+                R.id.registrationPassword -> validatePassword()
+                R.id.registrationConfirmPassword -> confirmPassword()
+
+            }
+        }
+
     }
 
 

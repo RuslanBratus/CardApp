@@ -2,24 +2,24 @@ package com.example.cardapplication.ui.fragments
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.util.Patterns
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.cardapplication.R
 import com.example.cardapplication.authentication.usecase.LogInByEmail
 import com.example.cardapplication.authentication.usecase.models.User
 import com.example.cardapplication.databinding.FragmentLoginBinding
 import java.util.regex.Pattern
+
 
 private val PASSWORD_PATTERN = Pattern.compile(
     "^" +
@@ -69,27 +69,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         binding.HaventAccountRegisterClickable.setOnClickListener { setRegistrationLayout() }
 
+        binding.loginEmailAddress.addTextChangedListener(MyTextWatcher(binding.loginEmailAddress))
+        binding.loginPassword.addTextChangedListener(MyTextWatcher(binding.loginPassword))
+
         binding.loginButton.setOnClickListener {
             val email : String = binding.loginEmailAddress.text.toString()
             val password : String = binding.loginPassword.text.toString()
-            if (email == "1" && password == "1") {
-                //@TODO DELETE THIS
-                Toast.makeText(context, "Loggined", Toast.LENGTH_LONG).show()
-                LogInByEmail.logIn(this, User(email = email, password = password))
-
-            }
             if (validateEmail(email) && validatePassword(password))
                 LogInByEmail.logIn(this, User(email = email, password = password))
         }
 
 
+
+
     }
-
-
-
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -106,32 +99,43 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
-    private fun validateEmail(email : String) : Boolean {
-        return if (email.isNotEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            //Toast.makeText(context, "Найс емайл, $email", Toast.LENGTH_SHORT).show()
-            true
+    private fun validateEmail(email : String = binding.loginEmailAddress.text.toString()) : Boolean {
+        return if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.emailLayout.error = getString(R.string.error_email)
+            false
         } else {
-            Toast.makeText(context, "Невірна електронна адреса.", Toast.LENGTH_SHORT).show()
+            binding.emailLayout.isErrorEnabled = false;
+            true
+        }
+    }
+
+    private fun validatePassword(password : String = binding.loginPassword.text.toString()) : Boolean {
+        return if (password.isEmpty() || !PASSWORD_PATTERN.matcher(password).matches()) {
+            //Toast.makeText(context, "Невірний формат паролю.\nПароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.", Toast.LENGTH_SHORT).show()
+            binding.passwordLayout.error = getString(R.string.error_login_password)
             false
         }
-    }
-
-    private fun validatePassword(password : String) : Boolean {
-        if (password.isNotEmpty() && !PASSWORD_PATTERN.matcher(password).matches()) {
-            Toast.makeText(context, "Невірний формат паролю.\nПароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.", Toast.LENGTH_SHORT).show()
-            return false
+        else
+        {
+            binding.passwordLayout.isErrorEnabled = false;
+            true
         }
-        return true
     }
 
 
-    private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        //@TODO CHANGE NUMBER
-        override fun getItemCount(): Int = 5
+    private inner class MyTextWatcher(private val view: View) : TextWatcher {
 
-        override fun createFragment(position: Int): Fragment = LoginFragment()
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
-        //ScreenSlidePageFragment()
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun afterTextChanged(editable: Editable) {
+            when (view.id) {
+                R.id.loginEmailAddress -> validateEmail()
+                R.id.loginPassword -> validatePassword()
+            }
+        }
+
     }
 
 

@@ -3,6 +3,7 @@ package com.example.cardapplication.data.firebase
 import android.util.Log
 import com.example.cardapplication.data.firebase.models.Category
 import com.example.cardapplication.data.firebase.models.Product
+import com.example.cardapplication.data.firebase.profile.ProfileManagement
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -11,7 +12,7 @@ import com.google.firebase.ktx.Firebase
 
 private const val FirebaseName = "Products"
 
-class StoreManager(){
+class StoreManager{
 
 
 
@@ -77,6 +78,15 @@ class StoreManager(){
 
 
         }
+
+        fun getProductById(productId : String) {
+
+            //myRef.child(productId).child("cards").addChildEventListener
+            val tmp = myRef.child(productId).get().result
+            Log.i("test", "value = ${tmp.value}, key = ${tmp.key}")
+        }
+
+
 
 
 

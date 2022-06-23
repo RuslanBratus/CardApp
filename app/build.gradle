@@ -36,7 +36,9 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.2"
+
+
+
     //CardView for cards
     implementation 'com.vinaygaba:creditcardview:1.0.4'
 

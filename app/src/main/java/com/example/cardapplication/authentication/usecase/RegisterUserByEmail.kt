@@ -2,6 +2,9 @@ package com.example.cardapplication.authentication.usecase
 
 import android.app.Activity
 import android.util.Log
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment
+import com.example.cardapplication.R
 import com.example.cardapplication.authentication.usecase.models.User
 import com.example.cardapplication.data.firebase.PersonalAccountsManager
 import com.example.cardapplication.data.firebase.models.PersonalAccount
@@ -16,7 +19,7 @@ class RegisterUserByEmail {
         private val auth: FirebaseAuth = Firebase.auth
 
 
-        fun registerNewUser(user : User) {
+        fun registerNewUser(currentFragment : Fragment, user : User) {
 
 
             auth.createUserWithEmailAndPassword(user.email, user.password)
@@ -27,7 +30,8 @@ class RegisterUserByEmail {
 
                         val userName = user.email.substringBefore('@')
                         PersonalAccountsManager.saveUserInfo(task.result.user?.uid!!, PersonalAccount(userName, task.result.user?.uid!!))
-                        LogInByEmail.checkCurrentUserAuthentication()
+                        if (LogInByEmail.checkCurrentUserAuthentication())
+                            setMainFragment(currentFragment)
                         //val user = auth.currentUser
                         //updateUI(user)
                     } else {
@@ -38,6 +42,11 @@ class RegisterUserByEmail {
 //                            updateUI(null)
                     }
                 }
+        }
+
+        private fun setMainFragment(currentFragment: Fragment) {
+            NavHostFragment.findNavController(fragment = currentFragment).navigate(R.id.mainFragment)
+
         }
 
 

@@ -33,5 +33,10 @@
     <string name="add_new_card">Додатки нову картку</string>
     <string name="UAH">Грн. </string>
     <string name="product_cost">Hello, %1$s! You have %2$d new messages.</string>
+    <string name="error_registration_password">Невірний формат паролю. Пароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.</string>
+    <string name="error_login_password">Невірний формат паролю</string>
+    <string name="error_email">Невірний формат електроної адреси</string>
+    <string name="error_registration_email">Невірний формат електроної адреси</string>
+    <string name="error_confirm_passwords">Паролі не співпадають</string>
 
 </resources>

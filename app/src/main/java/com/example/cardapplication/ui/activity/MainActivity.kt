@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cardapplication.R
+import com.example.cardapplication.data.firebase.profile.ProfileManagement
 import com.example.cardapplication.ui.fragments.LoginFragment
 import com.example.cardapplication.ui.fragments.RegistrationFragment
 
 class MainActivity : AppCompatActivity() {
-    //private lateinit var auth: FirebaseAuth
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,9 +18,8 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
-
-        //TODO DELETE THIS
         //ProfileManagement.logOut()
+
 
 
 

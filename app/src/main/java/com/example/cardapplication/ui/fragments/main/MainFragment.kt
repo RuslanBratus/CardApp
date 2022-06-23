@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.example.cardapplication.R
 import com.example.cardapplication.databinding.FragmentMainBinding
+import com.example.cardapplication.ui.fragments.adapter.main.DepthPageTransformer
 import com.example.cardapplication.ui.fragments.adapter.main.MainFragmentsAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -32,6 +33,8 @@ class MainFragment : Fragment() {
         binding = FragmentMainBinding.bind(view)
 
         val pagerAdapter = MainFragmentsAdapter(this)
+        binding.pager.setPageTransformer(DepthPageTransformer())
+
         binding.pager.adapter = pagerAdapter
 
         TabLayoutMediator(binding.tabLayout, binding.pager) {
