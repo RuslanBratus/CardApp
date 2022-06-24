@@ -27,19 +27,28 @@ class StoreFragment : Fragment() {
 
         binding = FragmentStoreBinding.bind(view)
 
-        mAdapter = MyRecyclerAdapter {
-            val bundle = Bundle()
-            bundle.putString("productId", it)
-            findNavController().navigate(R.id.action_mainFragment_to_productBuyingFragment, bundle)
+        if (!this::mAdapter.isInitialized) {
+            mAdapter = MyRecyclerAdapter {
+                val bundle = Bundle()
+                bundle.putString("productId", it)
+                findNavController().navigate(R.id.action_mainFragment_to_productBuyingFragment, bundle)
+            }
+
+            setAdapterProducts()
+        } else {
+            if (StoreManager.products.isEmpty()) {
+                setAdapterProducts()
+            } else {
+                mAdapter.products = StoreManager.products
+                //setAdapterProducts()
+            }
         }
 
-
-
         binding.recyclerView.adapter = mAdapter
-        //Maybe swap 38 || 36?
-
         binding.recyclerView.layoutManager = GridLayoutManager(context, 2)
-        setAdapterProducts()
+
+
+
 
     }
 
