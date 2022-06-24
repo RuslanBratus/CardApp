@@ -14,6 +14,7 @@ import com.example.cardapplication.ui.fragments.adapter.main.MyRecyclerAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.cardapplication.data.firebase.DataManager
 import com.example.cardapplication.data.firebase.StoreManager
+import com.example.cardapplication.data.firebase.models.Product
 import com.example.cardapplication.databinding.FragmentStoreBinding
 import com.example.cardapplication.ui.fragments.adapter.main.data.ProductDataModel
 
@@ -56,7 +57,10 @@ class StoreFragment : Fragment() {
     private fun setAdapterProducts() {
         val callBack = object : DataManager {
             override fun callBackData()  {
+//                val tmp = mutableListOf<Product>()
+//                tmp.add(StoreManager.products[0])
                 mAdapter.products = StoreManager.products
+//                mAdapter.products = tmp
             }
         }
 

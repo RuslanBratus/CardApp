@@ -33,7 +33,7 @@ class StoreManager{
             myRef.addValueEventListener(object : ValueEventListener {
 
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    mProducts.clear()
+                    //mProducts.clear()
                     Log.i("firebase", "started getting data from firebase")
                     var id : String = ""
                     var category : Category = Category.DEFAULT
@@ -56,8 +56,8 @@ class StoreManager{
 
                             }
                         }
-                        val tmp = Product(category, date, name, description, price, image, id)
-                        Log.i("firebase", "we created new Product: $tmp")
+
+                        Log.i("firebase", "we created new Product: ${Product(category, date, name, description, price, image, id)}")
                         mProducts.add(Product(category, date, name, description, price, image, id))
 
                     }

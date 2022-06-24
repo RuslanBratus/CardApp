@@ -46,8 +46,8 @@ class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): Rec
         return MyProductViewHolder(view)
     }
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: MyProductViewHolder, position: Int) {
+        Log.i("test", "onBindViewHolder")
         placeProducts(holder, position)
     }
 
@@ -57,13 +57,18 @@ class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): Rec
     private fun placeProducts(holder: MyProductViewHolder, position: Int) {
         Log.i("test", "placeProducts")
 
-        holder.name.text = StoreManager.products[position].name
-        holder.description.text = StoreManager.products[position].description
-        holder.price.text = StoreManager.products[position].price
-        Picasso.get().load(StoreManager.products[position].image).into(holder.image)
+
+        val product = products[position]
+        holder.name.text = product.name
+        holder.description.text = product.description
+        holder.price.text = product.price
+        Glide.with(holder.image.context)
+            .load(product.image)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .into(holder.image)
 
         holder.itemView.setOnClickListener {
-            onClick(StoreManager.products[position].id)
+            onClick(product.id)
         }
 
     }
