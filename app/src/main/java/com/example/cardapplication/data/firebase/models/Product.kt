@@ -1,9 +1,7 @@
 package com.example.cardapplication.data.firebase.models
 
-import android.provider.ContactsContract
+
 import java.io.Serializable
-import java.net.URL
-import java.util.*
 
 enum class Category {
     CLOTHES, CAR, FOOD, DEFAULT

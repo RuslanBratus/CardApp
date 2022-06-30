@@ -1,7 +1,6 @@
-package com.example.cardapplication.ui.fragments.adapter.main
+package com.example.cardapplication.ui.fragments.main.adapter
 
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2

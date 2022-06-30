@@ -2,12 +2,12 @@ package com.example.cardapplication.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.cardapplication.R
@@ -20,7 +20,10 @@ import mostafa.ma.saleh.gmail.com.editcredit.EditCredit
 class NewCardAddingFragment : Fragment() {
     private lateinit var binding : FragmentNewCardAddingBinding
 
-    @SuppressLint("SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentNewCardAddingBinding.bind(view)
@@ -29,27 +32,23 @@ class NewCardAddingFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        binding.MMYY.doOnTextChanged { text, _, _, _ ->
-            //Toast.makeText(context, "MM/YY is changing! text = ${text.toString()}, length = ${text.toString().length}", Toast.LENGTH_SHORT).show()
-            if (text.toString().length == 2) {
-                Toast.makeText(context, "MM/YY is changing! text = ${text.toString()}, length = ${text.toString().length}", Toast.LENGTH_SHORT).show()
-                //binding.MMYY.text.append("/")
-                binding.MMYY.setText(binding.MMYY.text.toString() + "/")
-            }
-        }
+
+
+
+        binding.cardNumber.addTextChangedListener(MyTextWatcher(binding.cardNumber))
+        binding.MMYY.addTextChangedListener(MyTextWatcher(binding.MMYY))
+        binding.CVV.addTextChangedListener(MyTextWatcher(binding.CVV))
 
         binding.addButton.setOnClickListener {
             if (
-                checkCardNumber(binding.cardNumber) &&
-                checkMMYY(binding.MMYY.text.toString()) &&
-                checkCVV(binding.CVV.text.toString())
+                checkCardNumber() &&
+                checkMMYY() &&
+                checkCVV()
             )
             {
                 PersonalAccountsManager.addNewCard(Card(binding.cardNumber.text.toString(), binding.MMYY.text.toString(), binding.CVV.text.toString()))
-                Toast.makeText(context, "Карту успішно додано!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.card_added), Toast.LENGTH_SHORT).show()
             }
-
-                //щось невірно, нічо не робимо
 
 
 
@@ -61,35 +60,64 @@ class NewCardAddingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_new_card_adding, container, false)
     }
 
-    private fun checkMMYY(expirationDate : String) : Boolean {
+    @SuppressLint("SetTextI18n")
+    private fun checkMMYY(expirationDate : String = binding.MMYY.text.toString()) : Boolean {
+
+        if (expirationDate.length == 2) {
+            binding.MMYY.setText(binding.MMYY.text.toString() + "/")
+        }
+
+
         if (expirationDate.length != 5) {
-            Toast.makeText(context, "Невірний MM/YY.", Toast.LENGTH_SHORT).show()
+            binding.MMYY.error = getString(R.string.error_incorrect_MMYY)
             return false
         }
+
+        binding.CVVLayout.isErrorEnabled = false;
         return true
     }
 
-    private fun checkCardNumber(cardNumber: EditCredit) : Boolean {
-        return if (cardNumber.isCardValid)
+    private fun checkCardNumber(cardNumber: EditCredit = binding.cardNumber) : Boolean {
+        return if (cardNumber.isCardValid) {
+            binding.cardNumberLayout.isErrorEnabled = false;
             true
+        }
         else {
-            Toast.makeText(context, "Номер карти невірний!", Toast.LENGTH_SHORT).show()
+            binding.cardNumberLayout.error = getString(R.string.error_incorrect_card_number)
             false
         }
 
     }
 
-    private fun checkCVV(CVV : String) : Boolean {
-        return if (CVV.length == 3)
+    private fun checkCVV(CVV : String = binding.CVV.text.toString()) : Boolean {
+        return if (CVV.length == 3) {
+            binding.CVVLayout.isErrorEnabled = false;
             true
+        }
         else {
-            Toast.makeText(context, "Номер CVV невірний!", Toast.LENGTH_SHORT).show()
+            binding.CVV.error = getString(R.string.error_incorrect_CVV)
             false
         }
+    }
+
+
+    private inner class MyTextWatcher(private val view: View) : TextWatcher {
+
+        override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
+
+        override fun afterTextChanged(editable: Editable) {
+            when (view.id) {
+                R.id.cardNumber -> checkCardNumber()
+                R.id.MM_YY -> checkMMYY()
+                R.id.CVV -> checkCVV()
+            }
+        }
+
     }
 
 

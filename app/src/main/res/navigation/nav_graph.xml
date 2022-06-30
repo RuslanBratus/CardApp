@@ -12,9 +12,17 @@
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/registrationFragment" />
         <action
             android:id="@+id/action_loginFragment_to_mainFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/mainFragment" />
     </fragment>
     <fragment
@@ -24,6 +32,10 @@
         tools:layout="@layout/fragment_registration">
         <action
             android:id="@+id/action_registrationFragment_to_loginFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
@@ -33,25 +45,44 @@
         tools:layout="@layout/fragment_main" >
         <action
             android:id="@+id/action_mainFragment_to_personalAccountFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/personalAccountFragment" />
         <action
             android:id="@+id/action_mainFragment_to_cardsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/cardsFragment" />
         <action
-            android:id="@+id/action_mainFragment_to_productBuyingFragment"
-            app:destination="@id/productBuyingFragment" />
+            android:id="@+id/action_mainFragment_to_confirmBuyingProductFragment"
+            app:destination="@id/confirmBuyingProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_purchaseHistoryFragment"
+            app:destination="@id/purchaseHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalAccountFragment"
         android:name="com.example.cardapplication.ui.fragments.PersonalAccountFragment"
         android:label="fragment_personal_account"
-        tools:layout="@layout/fragment_personal_account" />
+        tools:layout="@layout/fragment_personal_account" >
+        <action
+            android:id="@+id/action_personalAccountFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/cardsFragment"
-        android:name="com.example.cardapplication.ui.fragments.CardsFragment"
+        android:name="com.example.cardapplication.ui.fragments.adapter.cards.CardsFragment"
         android:label="CardsFragment" >
         <action
             android:id="@+id/action_cardsFragment_to_newCardAddingFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:destination="@id/newCardAddingFragment2" />
     </fragment>
     <fragment
@@ -60,8 +91,36 @@
         android:label="fragment_new_card_adding"
         tools:layout="@layout/fragment_new_card_adding" />
     <fragment
-        android:id="@+id/productBuyingFragment"
-        android:name="com.example.cardapplication.ui.fragments.ProductBuyingFragment"
-        android:label="fragment_product_buying"
-        tools:layout="@layout/fragment_product_buying" />
+        android:id="@+id/confirmBuyingProductFragment"
+        android:name="com.example.cardapplication.ui.fragments.ConfirmBuyingProductFragment"
+        android:label="fragment_confirm_buying_product"
+        tools:layout="@layout/fragment_confirm_buying_product" >
+        <action
+            android:id="@+id/action_confirmBuyingProductFragment_to_chooseCardFragment"
+            app:destination="@id/chooseCardFragment" />
+        <action
+            android:id="@+id/action_confirmBuyingProductFragment_to_confirmedPurchaseFragment"
+            app:destination="@id/confirmedPurchaseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseCardFragment"
+        android:name="com.example.cardapplication.ui.fragments.adapter.cards.ChooseCardFragment"
+        android:label="ChooseCardFragment" >
+        <action
+            android:id="@+id/action_chooseCardFragment_to_confirmBuyingProductFragment"
+            app:destination="@id/confirmBuyingProductFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/confirmedPurchaseFragment"
+        android:name="com.example.cardapplication.ui.fragments.ConfirmedPurchaseFragment"
+        android:label="fragment_confirmed_purchase"
+        tools:layout="@layout/fragment_confirmed_purchase" >
+        <action
+            android:id="@+id/action_confirmedPurchaseFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseHistoryFragment"
+        android:name="com.example.cardapplication.ui.fragments.purchases.PurchaseHistoryFragment"
+        android:label="PurchaseHistoryFragment" />
 </navigation>

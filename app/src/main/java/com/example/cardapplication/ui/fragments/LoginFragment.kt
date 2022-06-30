@@ -7,7 +7,6 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -36,14 +35,10 @@ private val PASSWORD_PATTERN = Pattern.compile(
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var binding : FragmentLoginBinding
 
-//    // TODO: Rename and change types of parameters
-//    private var param1: String? = null
-//    private var param2: String? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //ProfileManagement.logOut()
 
         if (LogInByEmail.checkCurrentUserAuthentication())
             setMainFragment()
@@ -52,7 +47,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
 
-        Log.d("Navigation", "Opening Login Layout")
+
 
 
 
@@ -104,20 +99,19 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             binding.emailLayout.error = getString(R.string.error_email)
             false
         } else {
-            binding.emailLayout.isErrorEnabled = false;
+            binding.emailLayout.isErrorEnabled = false
             true
         }
     }
 
     private fun validatePassword(password : String = binding.loginPassword.text.toString()) : Boolean {
         return if (password.isEmpty() || !PASSWORD_PATTERN.matcher(password).matches()) {
-            //Toast.makeText(context, "Невірний формат паролю.\nПароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.", Toast.LENGTH_SHORT).show()
             binding.passwordLayout.error = getString(R.string.error_login_password)
             false
         }
         else
         {
-            binding.passwordLayout.isErrorEnabled = false;
+            binding.passwordLayout.isErrorEnabled = false
             true
         }
     }

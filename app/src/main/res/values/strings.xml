@@ -30,7 +30,7 @@
     <string name="bank_card_number">Номер банківської карти</string>
     <string name="mm_yy">MM/YY</string>
     <string name="cvv">CVV</string>
-    <string name="add_new_card">Додатки нову картку</string>
+    <string name="add_new_card">Нова Карта</string>
     <string name="UAH">Грн. </string>
     <string name="product_cost">Hello, %1$s! You have %2$d new messages.</string>
     <string name="error_registration_password">Невірний формат паролю. Пароль має складатись принаймі з 6 символів, 1 цифри та без пробілів.</string>
@@ -38,5 +38,27 @@
     <string name="error_email">Невірний формат електроної адреси</string>
     <string name="error_registration_email">Невірний формат електроної адреси</string>
     <string name="error_confirm_passwords">Паролі не співпадають</string>
+    <string name="error_incorrect_CVV">Невірний CVV</string>
+    <string name="error_incorrect_MMYY">Невірний MMYY</string>
+    <string name="error_incorrect_card_number">Невірний номер карти</string>
+    <string name="card_added">Карту успішно додано!</string>
+    <string name="shopping_history">Історія\nпокупок</string>
+    <string name="delivery_address">Адрес\nдоставки</string>
+
+    <!--to toggle the open close button
+            of the navigation drawer-->
+    <string name="nav_open">Open</string>
+    <string name="nav_close">Close</string>
+    <string name="points">...</string>
+    <string name="Buy">Купити</string>
+    <string name="confirm_buying">Замовити</string>
+    <string name="add_new_address">Додати нову адресу</string>
+    <string name="choose_payment_method">Оберіть спосіб оплати</string>
+    <string name="all_total">Сумарно</string>
+    <string name="_1">1</string>
+    <string name="choose_card">Оберіть карту</string>
+    <string name="purchase_successfully">Покупку здійснено успішно!\nПродовжити покупки.</string>
+    <string name="purchase_history">Історія покупок</string>
+
 
 </resources>

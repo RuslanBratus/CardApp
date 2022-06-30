@@ -1,17 +1,16 @@
-package com.example.cardapplication.ui.fragments.adapter.main
-import android.annotation.SuppressLint
+package com.example.cardapplication.ui.fragments.main.adapter
+
+import android.graphics.Rect
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.cardapplication.R
-import com.example.cardapplication.data.firebase.DataManager
-import com.example.cardapplication.data.firebase.StoreManager
 import com.example.cardapplication.data.firebase.models.Product
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.*
 
 
 class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): RecyclerView.Adapter<MyProductViewHolder>() {
@@ -20,24 +19,6 @@ class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): Rec
         field = value
         notifyDataSetChanged()
     }
-//        set(value) {
-//            field = value
-//        }
-
-
-//    init {
-//        Log.i("test", "initing")
-//        val callBack = object : DataManager {
-//            override fun callBackData() : Int {
-//                amountOfProducts = StoreManager.products.size
-//                Log.i("test", "doing size. size = $amountOfProducts")
-//                return StoreManager.products.size
-//            }
-//        }
-//
-//        StoreManager.getProducts(callBack = callBack)
-//    }
-
 
 
 
@@ -62,7 +43,6 @@ class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): Rec
 
         val product = products[position]
         holder.name.text = product.name
-        holder.description.text = product.description
         holder.price.text = product.price
         Glide.with(holder.image.context)
             .load(product.image)
@@ -74,4 +54,31 @@ class MyRecyclerAdapter (private val onClick: (productId : String) -> Unit): Rec
         }
 
     }
+
 }
+class SpacesItemDecoration(private val space: Int) : ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect, view: View,
+        parent: RecyclerView, state: RecyclerView.State
+    ) {
+        if (parent.getChildLayoutPosition(view) % 2 == 1 )
+            outRect.left = 0
+        else
+            outRect.left = space
+
+
+
+
+        outRect.right = space
+        outRect.bottom = space
+
+
+
+        if (parent.getChildLayoutPosition(view) == 0 || parent.getChildLayoutPosition(view) == 1) {
+            outRect.top = space
+        } else {
+            outRect.top = 0
+        }
+    }
+}
+

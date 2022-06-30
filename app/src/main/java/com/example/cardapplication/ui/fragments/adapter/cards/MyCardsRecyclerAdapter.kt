@@ -1,19 +1,13 @@
 package com.example.cardapplication.ui.fragments.adapter.cards
 
 import android.graphics.Rect
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import com.example.cardapplication.R
-import com.example.cardapplication.data.firebase.DataManager
-import com.example.cardapplication.data.firebase.PersonalAccountsManager
 import com.example.cardapplication.data.firebase.models.Card
-import kotlinx.coroutines.runBlocking
-
-class MyCardsRecyclerAdapter : RecyclerView.Adapter<MyCardViewHolder>() {
+class MyCardsRecyclerAdapter(private val onClick: ((cardNumber : String) -> Unit)? = null) : RecyclerView.Adapter<MyCardViewHolder>() {
     var cards : List<Card> = listOf()
     set(value) {
         field = value
@@ -33,10 +27,17 @@ class MyCardsRecyclerAdapter : RecyclerView.Adapter<MyCardViewHolder>() {
     }
     override fun getItemCount(): Int = cards.size
 
-    private fun placeCards(holder: MyCardViewHolder, position: Int) = runBlocking{
+    private fun placeCards(holder: MyCardViewHolder, position: Int) {
         val card = cards[position]
         holder.card.cardNumber = card.number
         holder.card.expiryDate = card.mmyy
+
+        if (onClick != null) {
+            holder.itemView.setOnClickListener {
+                onClick!!(card.number)
+            }
+        }
+
     }
 
     inner class SpacesItemDecoration(private val space: Int = 10) : RecyclerView.ItemDecoration() {
